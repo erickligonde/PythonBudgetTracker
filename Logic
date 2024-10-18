@@ -1,0 +1,57 @@
+def getIncome():
+    try:
+        income = float(input("Please enter your after-tax income: $"))
+        return income
+    except ValueError:
+        print("Please enter valid income.")
+        return getIncome()
+        
+def allocateBudget(income):
+    budget = {
+        "needs": income * 0.50,
+        "wants": income * 0.30,
+        "savings": income * 0.20
+    }
+    return budget
+
+
+def displayBudget(budget):
+    print(f"Needs (50%): ${budget['needs']:.2f}")
+    print(f"Wants (30%): ${budget['wants']:.2f}")
+    print(f"Savings (20%): ${budget['savings']:.2f}")
+
+def track_expenses(budget):
+    total_needs = 0
+    total_wants = 0
+    total_savings = 0
+    
+    while True:
+        category = input("Enter the category that you would like to add to. (needs/wants/savings) or type done to finish: ").lower()
+        if category == 'done':
+            break
+        
+        amount = float(input("Enter the amount that you want to add: $"))
+        
+        if category == 'needs':
+            total_needs += amount
+        elif category == 'wants':
+            total_wants += amount
+        elif category == 'savings':
+            total_savings += amount
+        else:
+            print("Invalid category please choose from needs, wants, or savings.")
+    print("")
+    print(f"Total amount of Needs: {total_needs:.2f}. Budget for Needs: {budget['needs']:.2f}")
+    print(f"Total amount of Wants: {total_wants:.2f}. Budget for Wants: {budget['wants']:.2f}")
+    print(f"Total amount of Savings: {total_savings:.2f}. Budget for Savings: {budget['savings']:.2f}")
+    print("")
+    
+def main():
+    print("Welcome to the Budgeting App")
+    income = getIncome()
+    budget = allocateBudget(income)
+    displayBudget(budget)
+    track_expenses(budget)
+    
+    
+main()
